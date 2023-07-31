@@ -34,4 +34,21 @@
     -->
     <string-array name="cabc_values" translatable="false"></string-array>
 
+    <!-- DC Dimming Schedule settings -->
+    <string-array name="dc_dim_auto_mode_entries" translatable="false">
+        <item>@string/dc_dimming_schedule_disabled</item>
+        <item>@string/dc_dimming_schedule_twilight</item>
+        <item>@string/dc_dimming_schedule_mixed_sunset</item>
+        <item>@string/dc_dimming_schedule_mixed_sunrise</item>
+        <item>@string/dc_dimming_schedule_custom</item>
+    </string-array>
+
+    <string-array name="dc_dim_auto_mode_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>3</item>
+        <item>4</item>
+        <item>2</item>
+    </string-array>
+
 </resources>

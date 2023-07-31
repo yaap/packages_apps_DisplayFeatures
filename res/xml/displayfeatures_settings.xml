@@ -23,6 +23,15 @@
         android:defaultValue="false"
         android:title="@string/dc_dimming_title" />
 
+    <Preference
+        android:key="dc_schedule"
+        android:title="@string/dc_dimming_schedule_title"
+        android:persistent="false" >
+        <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.displayfeatures"
+                android:targetClass="com.android.displayfeatures.display.DisplayFeaturesDcDimScheduleActivity" />
+    </Preference>
+
     <SwitchPreferenceCompat
         android:key="hbm"
         android:defaultValue="false"

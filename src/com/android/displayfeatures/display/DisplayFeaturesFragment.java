@@ -17,6 +17,12 @@
 
 package com.android.displayfeatures.display;
 
+import static com.android.internal.util.yaap.AutoSettingConsts.MODE_DISABLED;
+import static com.android.internal.util.yaap.AutoSettingConsts.MODE_NIGHT;
+import static com.android.internal.util.yaap.AutoSettingConsts.MODE_TIME;
+import static com.android.internal.util.yaap.AutoSettingConsts.MODE_MIXED_SUNSET;
+import static com.android.internal.util.yaap.AutoSettingConsts.MODE_MIXED_SUNRISE;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +35,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+import android.provider.Settings;
 
 import com.android.displayfeatures.R;
 import com.android.displayfeatures.utils.FileUtils;
@@ -37,10 +44,13 @@ import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 public class DisplayFeaturesFragment extends SettingsBasePreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
+    private static final String DC_DIMMING_SCHEDULE_KEY = "dc_schedule";
+
     private SwitchPreferenceCompat mDcDimmingPreference;
     private SwitchPreferenceCompat mHBMPreference;
     private SwitchPreferenceCompat mFpsPreference;
     private ListPreference mCABCPreference;
+    private Preference mDcDimmingSchedulePreference;
     private DisplayFeaturesConfig mConfig;
     private boolean mInternalHbmStart = false;
     private boolean mInternalDcDimStart = false;
@@ -142,6 +152,9 @@ public class DisplayFeaturesFragment extends SettingsBasePreferenceFragment impl
         } else {
             getPreferenceScreen().removePreference(findPreference(mConfig.DISPLAYFEATURES_CABC_KEY));
         }
+        mDcDimmingSchedulePreference = findPreference(DC_DIMMING_SCHEDULE_KEY);
+        if (FileUtils.fileExists(mConfig.getDcDimPath())) updateDcDimmingScheduleSummary();
+        else getPreferenceScreen().removePreference(findPreference(DC_DIMMING_SCHEDULE_KEY));
 
         // Registering observers
         IntentFilter filter = new IntentFilter();
@@ -157,6 +170,7 @@ public class DisplayFeaturesFragment extends SettingsBasePreferenceFragment impl
         super.onResume();
         if (FileUtils.fileExists(mConfig.getDcDimPath())) {
             mDcDimmingPreference.setChecked(mConfig.isCurrentlyEnabled(mConfig.getDcDimPath()));
+            updateDcDimmingScheduleSummary();
         }
         if (FileUtils.fileExists(mConfig.getHbmPath())) {
             mHBMPreference.setChecked(mConfig.isCurrentlyEnabled(mConfig.getHbmPath()));
@@ -242,5 +256,29 @@ public class DisplayFeaturesFragment extends SettingsBasePreferenceFragment impl
     private boolean isFpsOverlayRunning() {
         final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         return sharedPrefs.getBoolean(mConfig.PREF_KEY_FPS_STATE, false);
+    }
+
+    private void updateDcDimmingScheduleSummary() {
+        if (mDcDimmingSchedulePreference == null) return;
+        int mode = Settings.Secure.getIntForUser(getActivity().getContentResolver(),
+                Settings.Secure.DC_DIM_AUTO_MODE, 0, UserHandle.USER_CURRENT);
+        switch (mode) {
+            default:
+            case MODE_DISABLED:
+                mDcDimmingSchedulePreference.setSummary(R.string.dc_dimming_schedule_disabled);
+                break;
+            case MODE_NIGHT:
+                mDcDimmingSchedulePreference.setSummary(R.string.dc_dimming_schedule_twilight);
+                break;
+            case MODE_TIME:
+                mDcDimmingSchedulePreference.setSummary(R.string.dc_dimming_schedule_custom);
+                break;
+            case MODE_MIXED_SUNSET:
+                mDcDimmingSchedulePreference.setSummary(R.string.dc_dimming_schedule_mixed_sunset);
+                break;
+            case MODE_MIXED_SUNRISE:
+                mDcDimmingSchedulePreference.setSummary(R.string.dc_dimming_schedule_mixed_sunrise);
+                break;
+        }
     }
 }

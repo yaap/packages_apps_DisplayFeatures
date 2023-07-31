@@ -62,6 +62,12 @@
                 android:resource="@string/display_features_summary" />
         </activity>
 
+        <activity
+            android:name=".display.DisplayFeaturesDcDimScheduleActivity"
+            android:label="@string/dc_dimming_schedule_title"
+            android:exported="false">
+        </activity>
+
         <service
             android:name=".display.DisplayFeaturesDcDimTileService"
             android:exported="true"
