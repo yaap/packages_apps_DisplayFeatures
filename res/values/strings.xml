@@ -33,4 +33,16 @@
     <string name="fps_summary">Shows overlay with current frames per second</string>
     <string name="fps_summary_not_supported">FPS Overlay is currently not supported by the kernel</string>
 
+    <!-- DC Dimming Schedule settings-->
+    <string name="dc_dimming_schedule_disabled">Disabled</string>
+    <string name="dc_dimming_schedule_title">Anti-Flicker Schedule</string>
+    <string name="dc_dimming_schedule_auto_mode_title">Schedule</string>
+    <string name="dc_dimming_schedule_start_time_title">Start time</string>
+    <string name="dc_dimming_schedule_end_time_title">End time</string>
+    <string name="dc_dimming_schedule_twilight">Turns on from sunset to sunrise</string>
+    <string name="dc_dimming_schedule_mixed_sunset">Turns on from sunset till a time</string>
+    <string name="dc_dimming_schedule_mixed_sunrise">Turns on from a time till sunrise</string>
+    <string name="dc_dimming_schedule_custom">Turns on at a custom time</string>
+    <string name="dc_dimming_schedule_sunset">Sunset</string>
+    <string name="dc_dimming_schedule_sunrise">Sunrise</string>
 </resources>
