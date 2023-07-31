@@ -45,8 +45,8 @@ public class DisplayFeaturesConfig {
     public static final String ACTION_HBM_SERVICE_CHANGED = "com.android.displayfeatures.display.HBM_SERVICE_CHANGED";
     public static final String EXTRA_HBM_STATE = "hbmenabled";
 
-    public static final String ACTION_DC_DIM_SERVICE_CHANGED = "com.android.displayfeatures.display.DC_DIM_SERVICE_CHANGED";
-    public static final String EXTRA_DC_DIM_STATE = "dcdimenabled";
+    public static final String ACTION_DC_DIM_SERVICE_CHANGED = "com.yaap.device.DeviceSettings.ModeSwitch.DCMODE_CHANGED";
+    public static final String EXTRA_DC_DIM_STATE = "enabled";
 
     public static final String ACTION_FPS_SERVICE_CHANGED = "com.android.displayfeatures.display.FPS_SERVICE_CHANGED";
     public static final String EXTRA_FPS_STATE = "fpsenabled";

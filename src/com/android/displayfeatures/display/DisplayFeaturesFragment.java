@@ -17,6 +17,12 @@
 
 package com.android.displayfeatures.display;
 
+import static com.android.internal.util.yaap.AutoSettingConsts.MODE_DISABLED;
+import static com.android.internal.util.yaap.AutoSettingConsts.MODE_NIGHT;
+import static com.android.internal.util.yaap.AutoSettingConsts.MODE_TIME;
+import static com.android.internal.util.yaap.AutoSettingConsts.MODE_MIXED_SUNSET;
+import static com.android.internal.util.yaap.AutoSettingConsts.MODE_MIXED_SUNRISE;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +35,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+import android.provider.Settings;
 
 import com.android.displayfeatures.R;
 import com.android.displayfeatures.utils.FileUtils;
@@ -36,9 +43,12 @@ import com.android.displayfeatures.utils.FileUtils;
 public class DisplayFeaturesFragment extends PreferenceFragmentCompat implements
         Preference.OnPreferenceChangeListener {
 
+    private static final String DC_DIMMING_SCHEDULE_KEY = "dc_schedule";
+
     private SwitchPreferenceCompat mDcDimmingPreference;
     private SwitchPreferenceCompat mHBMPreference;
     private SwitchPreferenceCompat mFpsPreference;
+    private Preference mDcDimmingSchedulePreference;
     private DisplayFeaturesConfig mConfig;
     private boolean mInternalHbmStart = false;
     private boolean mInternalDcDimStart = false;
@@ -114,6 +124,9 @@ public class DisplayFeaturesFragment extends PreferenceFragmentCompat implements
         if (FileUtils.fileExists(mConfig.getFpsPath())) mFpsPreference.setOnPreferenceChangeListener(this);
         else mFpsPreference.setSummary(R.string.fps_summary_not_supported);
 
+	mDcDimmingSchedulePreference = findPreference(DC_DIMMING_SCHEDULE_KEY);
+	updateDcDimmingScheduleSummary();
+
         mDcDimmingPreference.setChecked(mConfig.isCurrentlyEnabled(mConfig.getDcDimPath()));
         mHBMPreference.setChecked(mConfig.isCurrentlyEnabled(mConfig.getHbmPath()));
         mFpsPreference.setChecked(isFpsOverlayRunning());
@@ -132,6 +145,7 @@ public class DisplayFeaturesFragment extends PreferenceFragmentCompat implements
         mDcDimmingPreference.setChecked(mConfig.isCurrentlyEnabled(mConfig.getDcDimPath()));
         mHBMPreference.setChecked(mConfig.isCurrentlyEnabled(mConfig.getHbmPath()));
         mFpsPreference.setChecked(isFpsOverlayRunning());
+        updateDcDimmingScheduleSummary();
     }
 
 
@@ -199,5 +213,29 @@ public class DisplayFeaturesFragment extends PreferenceFragmentCompat implements
         Context context = getContext();
         final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPrefs.getBoolean(mConfig.PREF_KEY_FPS_STATE, false);
+    }
+
+    private void updateDcDimmingScheduleSummary() {
+        if (mDcDimmingSchedulePreference == null) return;
+        int mode = Settings.Secure.getIntForUser(getActivity().getContentResolver(),
+                Settings.Secure.DC_DIM_AUTO_MODE, 0, UserHandle.USER_CURRENT);
+        switch (mode) {
+            default:
+            case MODE_DISABLED:
+                mDcDimmingSchedulePreference.setSummary(R.string.dc_dimming_schedule_disabled);
+                break;
+            case MODE_NIGHT:
+                mDcDimmingSchedulePreference.setSummary(R.string.dc_dimming_schedule_twilight);
+                break;
+            case MODE_TIME:
+                mDcDimmingSchedulePreference.setSummary(R.string.dc_dimming_schedule_custom);
+                break;
+            case MODE_MIXED_SUNSET:
+                mDcDimmingSchedulePreference.setSummary(R.string.dc_dimming_schedule_mixed_sunset);
+                break;
+            case MODE_MIXED_SUNRISE:
+                mDcDimmingSchedulePreference.setSummary(R.string.dc_dimming_schedule_mixed_sunrise);
+                break;
+        }
     }
 }
