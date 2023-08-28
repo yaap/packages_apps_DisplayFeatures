@@ -40,7 +40,7 @@
     <string name="dc_dimming_schedule_start_time_title">Start time</string>
     <string name="dc_dimming_schedule_end_time_title">End time</string>
     <string name="dc_dimming_schedule_twilight">Turns on from sunset to sunrise</string>
-    <string name="dc_dimming_schedule_mixed_sunset">Turns on from sunset till a time</string>
+    <string name="dc_dimming_schedule_mixed_sunset">Turns on from sunset till a set time</string>
     <string name="dc_dimming_schedule_mixed_sunrise">Turns on from a time till sunrise</string>
     <string name="dc_dimming_schedule_custom">Turns on at a custom time</string>
     <string name="dc_dimming_schedule_sunset">Sunset</string>
