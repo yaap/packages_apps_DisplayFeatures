@@ -33,4 +33,16 @@
     <string name="fps_summary">Muestra una superposición con los fotogramas por segundo actuales</string>
     <string name="fps_summary_not_supported">El kernel no admite actualmente la superposición de FPS</string>
 
+    <!-- DC Dimming Schedule settings-->
+    <string name="dc_dimming_schedule_disabled">Desactivado</string>
+    <string name="dc_dimming_schedule_title">Programacion del Modo de Brillo Alto</string>
+    <string name="dc_dimming_schedule_auto_mode_title">Programar</string>
+    <string name="dc_dimming_schedule_start_time_title">Hora de inicio</string>
+    <string name="dc_dimming_schedule_end_time_title">Hora de finalización</string>
+    <string name="dc_dimming_schedule_twilight">Se enciende del atardecer al amanecer</string>
+    <string name="dc_dimming_schedule_mixed_sunset">Se enciende desde el atardecer hasta una hora determinada</string>
+    <string name="dc_dimming_schedule_mixed_sunrise">Se enciende desde una hora determinada hasta el amanecer</string>
+    <string name="dc_dimming_schedule_custom">Se enciende a una hora personalizada</string>
+    <string name="dc_dimming_schedule_sunset">Atardecer</string>
+    <string name="dc_dimming_schedule_sunrise">Amanecer</string>
 </resources>
