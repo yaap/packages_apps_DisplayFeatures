@@ -35,4 +35,17 @@
     <string name="cabc_title">Contrôle Adaptatif de la Luminosité</string>
     <string name="cabc_summary_not_supported">CABC n\'est actuellement pas pris en charge par le noyau</string>
 
+    <!-- DC Dimming Schedule settings -->
+    <string name="dc_dimming_schedule_disabled">Désactivé</string>
+    <string name="dc_dimming_schedule_title">Programmation anti-scintillement</string>
+    <string name="dc_dimming_schedule_auto_mode_title">Programmation</string>
+    <string name="dc_dimming_schedule_start_time_title">Heure de début</string>
+    <string name="dc_dimming_schedule_end_time_title">Heure de fin</string>
+    <string name="dc_dimming_schedule_twilight">S\'allume du coucher au lever du soleil</string>
+    <string name="dc_dimming_schedule_mixed_sunset">S\'allume du coucher du soleil jusqu\'à une heure définie</string>
+    <string name="dc_dimming_schedule_mixed_sunrise">S\'allume à partir d\'une heure définie jusqu\'au lever du soleil</string>
+    <string name="dc_dimming_schedule_custom">S\'allume à une heure personnalisée</string>
+    <string name="dc_dimming_schedule_sunset">Coucher de soleil</string>
+    <string name="dc_dimming_schedule_sunrise">Lever du soleil</string>
+
 </resources>
