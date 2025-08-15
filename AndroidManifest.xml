@@ -26,6 +26,7 @@
 
     <protected-broadcast android:name="com.android.displayfeatures.display.HBM_SERVICE_CHANGED" />
     <protected-broadcast android:name="com.android.displayfeatures.display.FPS_SERVICE_CHANGED" />
+    <protected-broadcast android:name="com.yaap.device.DeviceSettings.ModeSwitch.DCMODE_CHANGED" />
 
     <application
         android:label="@string/display_features_title"
